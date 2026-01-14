@@ -49,7 +49,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
 function showTokenNotification(): void {
   vscode.window
     .showWarningMessage(
-      "GitHub token not configured for Commit Generator",
+      "GitHub token not configured for LazyCommit",
       "Get Token",
       "Input Token"
     )

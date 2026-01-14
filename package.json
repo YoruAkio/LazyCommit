@@ -1,7 +1,7 @@
 {
-  "name": "commit-message-generator",
-  "displayName": "VSCode Commit Generator",
-  "description": "Generate commit messages using GitHub Copilot AI",
+  "name": "lazycommit",
+  "displayName": "LazyCommit",
+  "description": "Too lazy to write commit messages? Let AI do it for you",
   "version": "0.0.2",
   "publisher": "YoruAkio",
   "author": {
@@ -49,7 +49,7 @@
       ]
     },
     "configuration": {
-      "title": "Commit Message Generator",
+      "title": "LazyCommit",
       "properties": {
         "commitGenerator.commitFormat": {
           "type": "string",

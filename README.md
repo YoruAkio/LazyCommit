@@ -1,8 +1,8 @@
 <div align="center">
 
-# AI Commit Message Generator
+# LazyCommit
 
-**Generate conventional commit messages using GitHub Copilot AI**
+**Too lazy to write commit messages? Let AI do it for you.**
 
 </div>
 
@@ -10,7 +10,7 @@
 
 ## Features
 
-- Generate commit messages from staged changes using GitHub Copilot AI
+- Generate commit messages from staged changes using GitHub Models AI
 - Two commit format styles: **Default** (with scope) and **Simple** (without scope)
 - Supports single and multiple changes with bullet points
 - Secure token storage using VSCode SecretStorage
@@ -21,8 +21,8 @@
 ### From Source
 
 ```bash
-git clone https://github.com/YoruAkio/VSCodeCommitGenerator.git
-cd VSCodeCommitGenerator
+git clone https://github.com/YoruAkio/LazyCommit.git
+cd LazyCommit
 bun install
 bun run compile
 bun run package
@@ -38,7 +38,7 @@ bun run package
 ## Usage
 
 1. Stage your changes in Git
-2. Click the ✨ (sparkle) icon in the Source Control title bar
+2. Click the sparkle icon in the Source Control title bar
 3. The generated commit message will appear in the commit input box
 
 ## Github Models Rate Limit Information
@@ -50,7 +50,7 @@ For more information on rate limits, see [GitHub's documentation](https://docs.g
 | Setting | Description | Default |
 |---------|-------------|---------|
 | `commitGenerator.commitFormat` | Commit format style (`default` or `simple`) | `default` |
-| `commitGenerator.model` | GitHub Copilot model to use | `gpt-4o-mini` |
+| `commitGenerator.model` | GitHub Models model to use | `gpt-4o-mini` |
 
 ### Commit Formats
 
@@ -75,7 +75,7 @@ feat: implement checkout improvements
 ## Requirements
 
 - VSCode 1.85.0 or higher
-- GitHub Personal Access Token ( Fine-grained token ) with `model:read` scope
+- GitHub Personal Access Token (Fine-grained token) with `model:read` scope
 
 ## Contributing
 
