@@ -18,6 +18,16 @@
 
 ## Installation
 
+### From VSIX (Recommended)
+
+1. Go to [Releases](https://github.com/YoruAkio/LazyCommit/releases) page
+2. Download the latest `.vsix` file
+3. Open VSCode
+4. Open command palette (`Cmd+Shift+P` / `Ctrl+Shift+P`)
+5. Type `Extensions: Install from VSIX...`
+6. Select the downloaded `.vsix` file
+7. Reload VSCode when prompted
+
 ### From Source
 
 ```bash
@@ -27,6 +37,8 @@ bun install
 bun run compile
 bun run package
 ```
+
+Then install the generated `.vsix` file using the steps above.
 
 ## Setup
 
