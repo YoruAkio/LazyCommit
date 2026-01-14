@@ -11,7 +11,7 @@
 ## Features
 
 - Generate commit messages from staged changes using GitHub Models AI
-- Two commit format styles: **Default** (with scope) and **Simple** (without scope)
+- Three commit format styles: **Default**, **Simple**, and **Short**
 - Multiple AI model selection (GPT-4o, GPT-4o Mini, GPT-4.1, etc.)
 - Secure token storage using VSCode SecretStorage
 - One-click generation from SCM title bar
@@ -51,7 +51,7 @@ Open command palette (`Cmd+Shift+P` / `Ctrl+Shift+P`) and type "LazyCommit":
 | `LazyCommit: Input GitHub Token (PAT Fine-grained)` | Enter your GitHub token |
 | `LazyCommit: Get GitHub Token` | Open GitHub page to create a new token |
 | `LazyCommit: Select AI Model` | Choose AI model for generation |
-| `LazyCommit: Select Commit Style` | Switch between default and simple style |
+| `LazyCommit: Select Commit Style` | Switch between default, simple, and short style |
 
 ## Github Models Rate Limit Information
 
@@ -61,7 +61,7 @@ For more information on rate limits, see [GitHub's documentation](https://docs.g
 
 | Setting | Description | Default |
 |---------|-------------|---------|
-| `lazycommit.commitFormat` | Commit format style (`default` or `simple`) | `default` |
+| `lazycommit.commitFormat` | Commit format style (`default`, `simple`, or `short`) | `default` |
 | `lazycommit.model` | GitHub Models AI model to use | `gpt-4o-mini` |
 
 ### Available Models
@@ -91,6 +91,11 @@ feat: implement checkout improvements
 - add promo code validation
 - fix cart quantity sync
 - add order confirmation email
+```
+
+**Short** - One line with semicolons:
+```
+feat: add login; fix validation; update UI
 ```
 
 ## Requirements

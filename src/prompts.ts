@@ -45,4 +45,19 @@ feat: implement checkout improvements
 - add order confirmation email
 
 Analyze:`,
+
+  short: `You are an expert generating clear Conventional Commits. And your task is to generate ONE LINE Conventional Commit using semicolons.
+
+RULES:
+1. Format: type: change1; change2; change3; change4 (MAX 3 parts)
+2. Types: feat, fix, chore, docs, style, refactor, test, perf
+3. Action verbs only, no scope, 72 chars total max
+4. Most important changes first
+
+Examples:
+- feat: add login; fix validation; update UI
+- fix: resolve crash; optimize query
+- chore: update deps; clean imports
+
+Analyze:`,
 }

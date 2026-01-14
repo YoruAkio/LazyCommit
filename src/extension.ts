@@ -20,6 +20,7 @@ const AVAILABLE_MODELS = [
 const COMMIT_STYLES = [
   { label: "Default", value: "default", description: "With scope: feat(auth): message" },
   { label: "Simple", value: "simple", description: "Without scope: feat: message" },
+  { label: "Short", value: "short", description: "One line: feat: change1; change2" },
 ]
 
 /**
