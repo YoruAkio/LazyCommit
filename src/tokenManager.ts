@@ -4,7 +4,7 @@ import * as vscode from "vscode"
  * @note Manages GitHub token storage using VSCode SecretStorage
  */
 export class TokenManager {
-  private static readonly TOKEN_KEY = "commitGenerator.githubToken"
+  private static readonly TOKEN_KEY = "lazycommit.githubToken"
   private context: vscode.ExtensionContext
 
   constructor(context: vscode.ExtensionContext) {

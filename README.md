@@ -12,7 +12,7 @@
 
 - Generate commit messages from staged changes using GitHub Models AI
 - Two commit format styles: **Default** (with scope) and **Simple** (without scope)
-- Supports single and multiple changes with bullet points
+- Multiple AI model selection (GPT-4o, GPT-4o Mini, GPT-4.1, etc.)
 - Secure token storage using VSCode SecretStorage
 - One-click generation from SCM title bar
 
@@ -41,6 +41,18 @@ bun run package
 2. Click the sparkle icon in the Source Control title bar
 3. The generated commit message will appear in the commit input box
 
+## Commands
+
+Open command palette (`Cmd+Shift+P` / `Ctrl+Shift+P`) and type "LazyCommit":
+
+| Command | Description |
+|---------|-------------|
+| `LazyCommit: Generate Commit Message` | Generate commit message from staged changes |
+| `LazyCommit: Input GitHub Token (PAT Fine-grained)` | Enter your GitHub token |
+| `LazyCommit: Get GitHub Token` | Open GitHub page to create a new token |
+| `LazyCommit: Select AI Model` | Choose AI model for generation |
+| `LazyCommit: Select Commit Style` | Switch between default and simple style |
+
 ## Github Models Rate Limit Information
 
 For more information on rate limits, see [GitHub's documentation](https://docs.github.com/en/github-models/use-github-models/prototyping-with-ai-models#rate-limits).
@@ -49,8 +61,17 @@ For more information on rate limits, see [GitHub's documentation](https://docs.g
 
 | Setting | Description | Default |
 |---------|-------------|---------|
-| `commitGenerator.commitFormat` | Commit format style (`default` or `simple`) | `default` |
-| `commitGenerator.model` | GitHub Models model to use | `gpt-4o-mini` |
+| `lazycommit.commitFormat` | Commit format style (`default` or `simple`) | `default` |
+| `lazycommit.model` | GitHub Models AI model to use | `gpt-4o-mini` |
+
+### Available Models
+
+- GPT-4o Mini (fast and efficient)
+- GPT-4o (most capable)
+- GPT-4.1 (latest version)
+- GPT-4.1 Mini (balanced)
+- GPT-4.1 Nano (lightweight)
+- o4 Mini (optimized)
 
 ### Commit Formats
 

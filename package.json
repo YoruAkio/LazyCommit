@@ -2,7 +2,7 @@
   "name": "lazycommit",
   "displayName": "LazyCommit",
   "description": "Too lazy to write commit messages? Let AI do it for you",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "YoruAkio",
   "author": {
     "name": "YoruAkio"
@@ -30,19 +30,31 @@
   "contributes": {
     "commands": [
       {
-        "command": "commitGenerator.generateMessage",
-        "title": "Generate Commit Message",
+        "command": "lazycommit.generateMessage",
+        "title": "LazyCommit: Generate Commit Message",
         "icon": "$(sparkle)"
       },
       {
-        "command": "commitGenerator.inputToken",
-        "title": "Input GitHub Token"
+        "command": "lazycommit.inputToken",
+        "title": "LazyCommit: Input GitHub Token (PAT Fine-grained)"
+      },
+      {
+        "command": "lazycommit.getToken",
+        "title": "LazyCommit: Get GitHub Token"
+      },
+      {
+        "command": "lazycommit.selectModel",
+        "title": "LazyCommit: Select AI Model"
+      },
+      {
+        "command": "lazycommit.selectCommitStyle",
+        "title": "LazyCommit: Select Commit Style"
       }
     ],
     "menus": {
       "scm/title": [
         {
-          "command": "commitGenerator.generateMessage",
+          "command": "lazycommit.generateMessage",
           "group": "navigation",
           "when": "scmProvider == git"
         }
@@ -51,7 +63,7 @@
     "configuration": {
       "title": "LazyCommit",
       "properties": {
-        "commitGenerator.commitFormat": {
+        "lazycommit.commitFormat": {
           "type": "string",
           "enum": [
             "default",
@@ -60,10 +72,10 @@
           "default": "default",
           "description": "Commit message format style"
         },
-        "commitGenerator.model": {
+        "lazycommit.model": {
           "type": "string",
           "default": "gpt-4o-mini",
-          "description": "GitHub Copilot model to use"
+          "description": "GitHub Models AI model to use"
         }
       }
     }
