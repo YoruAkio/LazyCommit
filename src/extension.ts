@@ -13,8 +13,7 @@ const AVAILABLE_MODELS = [
   { label: "GPT-4o", value: "gpt-4o", description: "Most capable" },
   { label: "GPT-4.1", value: "gpt-4.1", description: "Latest GPT-4 version" },
   { label: "GPT-4.1 Mini", value: "gpt-4.1-mini", description: "Balanced performance" },
-  { label: "GPT-4.1 Nano", value: "gpt-4.1-nano", description: "Lightweight and fast" },
-  { label: "o4 Mini", value: "o4-mini", description: "Optimized mini model" },
+  { label: "GPT-4.1 Nano", value: "gpt-4.1-nano", description: "Lightweight and fast" }
 ]
 
 // @note commit style options
