@@ -1,0 +1,10 @@
+.vscode-test/
+src/
+*.vsix
+.DS_Store
+.git/
+.gitignore
+example/
+bun.lock
+tsconfig.json
+node_modules/
