@@ -2,7 +2,7 @@
   "name": "lazycommit",
   "displayName": "LazyCommit",
   "description": "Too lazy to write commit messages? Let AI do it for you",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "publisher": "YoruAkio",
   "author": {
     "name": "YoruAkio"

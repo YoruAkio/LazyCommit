@@ -7,6 +7,21 @@ import { SYSTEM_PROMPTS } from "./prompts"
 let tokenManager: TokenManager
 let copilotClient: CopilotClient | null = null
 
+interface GitRepository {
+  rootUri: vscode.Uri
+  inputBox: {
+    value: string
+  }
+}
+
+interface GitApi {
+  repositories: GitRepository[]
+}
+
+interface ScmProviderContext {
+  rootUri?: vscode.Uri
+}
+
 // @note available models for selection
 const AVAILABLE_MODELS = [
   { label: "GPT-4o Mini", value: "gpt-4o-mini", description: "Fast and efficient" },
@@ -43,8 +58,8 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
   // @note register generate message command
   const generateCommand = vscode.commands.registerCommand(
     "lazycommit.generateMessage",
-    async () => {
-      await generateCommitMessage()
+    async (scmProvider?: ScmProviderContext) => {
+      await generateCommitMessage(scmProvider)
     }
   )
 
@@ -212,7 +227,7 @@ async function selectCommitStyle(): Promise<void> {
 /**
  * @note Generate commit message from staged changes
  */
-async function generateCommitMessage(): Promise<void> {
+async function generateCommitMessage(scmProvider?: ScmProviderContext): Promise<void> {
   // @note check token
   const token = await tokenManager.getToken()
   if (!token) {
@@ -226,9 +241,12 @@ async function generateCommitMessage(): Promise<void> {
     copilotClient = new CopilotClient(token, model)
   }
 
+  const targetRepository = getTargetRepository(scmProvider)
+  const targetRepoPath = targetRepository?.rootUri.fsPath
+
   // @note get staged changes
   const gitService = new GitService()
-  const stagedDiff = await gitService.getStagedDiff()
+  const stagedDiff = await gitService.getStagedDiff(targetRepoPath)
 
   if (!stagedDiff) {
     vscode.window.showWarningMessage("No staged changes found. Stage some changes first.")
@@ -255,12 +273,16 @@ async function generateCommitMessage(): Promise<void> {
         )
 
         // @note set message to scm input box
-        const gitExtension = vscode.extensions.getExtension("vscode.git")
-        if (gitExtension) {
-          const git = gitExtension.exports.getAPI(1)
-          const repo = git.repositories[0]
-          if (repo) {
-            repo.inputBox.value = message
+        if (targetRepository) {
+          targetRepository.inputBox.value = message
+        } else {
+          const gitExtension = vscode.extensions.getExtension("vscode.git")
+          if (gitExtension) {
+            const git = gitExtension.exports.getAPI(1) as GitApi
+            const repo = git.repositories[0]
+            if (repo) {
+              repo.inputBox.value = message
+            }
           }
         }
       } catch (error) {
@@ -269,6 +291,40 @@ async function generateCommitMessage(): Promise<void> {
       }
     }
   )
+}
+
+/**
+ * @note resolve current git repository from scm context
+ * @param scmProvider - scm provider from command context
+ * @returns matching git repository or null
+ */
+function getTargetRepository(scmProvider?: ScmProviderContext): GitRepository | null {
+  const gitExtension = vscode.extensions.getExtension("vscode.git")
+  if (!gitExtension) {
+    return null
+  }
+
+  const git = gitExtension.exports.getAPI(1) as GitApi
+
+  if (scmProvider?.rootUri) {
+    const scmRoot = scmProvider.rootUri.fsPath
+    const matchedByScm = git.repositories.find((repo) => repo.rootUri.fsPath === scmRoot)
+    if (matchedByScm) {
+      return matchedByScm
+    }
+  }
+
+  const activeFilePath = vscode.window.activeTextEditor?.document.uri.fsPath
+  if (activeFilePath) {
+    const matchedByEditor = git.repositories.find((repo) =>
+      activeFilePath.startsWith(repo.rootUri.fsPath)
+    )
+    if (matchedByEditor) {
+      return matchedByEditor
+    }
+  }
+
+  return git.repositories[0] ?? null
 }
 
 export function deactivate(): void {}

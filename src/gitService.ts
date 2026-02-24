@@ -9,20 +9,34 @@ const execAsync = promisify(exec)
  */
 export class GitService {
   /**
-   * @note Get staged changes diff
-   * @returns Staged diff string or null if no changes
+   * @note resolve default git cwd from workspace root
+   * @returns workspace folder path or null
    */
-  async getStagedDiff(): Promise<string | null> {
+  private getDefaultCwd(): string | null {
     const workspaceFolders = vscode.workspace.workspaceFolders
     if (!workspaceFolders || workspaceFolders.length === 0) {
       return null
     }
 
-    const cwd = workspaceFolders[0].uri.fsPath
+    return workspaceFolders[0].uri.fsPath
+  }
+
+  /**
+   * @note Get staged changes diff
+   * @param cwd - optional git repository path
+   * @returns staged diff string or null if no changes
+   */
+  async getStagedDiff(cwd?: string): Promise<string | null> {
+    const resolvedCwd = cwd || this.getDefaultCwd()
+    if (!resolvedCwd) {
+      return null
+    }
 
     try {
       // @note get staged diff
-      const { stdout: diff } = await execAsync("git diff --cached", { cwd })
+      const { stdout: diff } = await execAsync("git diff --cached", {
+        cwd: resolvedCwd,
+      })
 
       if (!diff.trim()) {
         return null
@@ -42,20 +56,19 @@ export class GitService {
 
   /**
    * @note Get list of staged files
-   * @returns Array of staged file names
+   * @param cwd - optional git repository path
+   * @returns array of staged file names
    */
-  async getStagedFiles(): Promise<string[]> {
-    const workspaceFolders = vscode.workspace.workspaceFolders
-    if (!workspaceFolders || workspaceFolders.length === 0) {
+  async getStagedFiles(cwd?: string): Promise<string[]> {
+    const resolvedCwd = cwd || this.getDefaultCwd()
+    if (!resolvedCwd) {
       return []
     }
-
-    const cwd = workspaceFolders[0].uri.fsPath
 
     try {
       const { stdout } = await execAsync(
         "git diff --cached --name-only",
-        { cwd }
+        { cwd: resolvedCwd }
       )
       return stdout.trim().split("\n").filter(Boolean)
     } catch {
